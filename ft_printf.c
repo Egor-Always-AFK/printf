@@ -14,7 +14,7 @@
 
 int	check_arg(va_list arguments, char arg)
 {
-	unsigned int number;
+	int	number;
 
 	number = 0;
 	if (arg == 'i' || arg == 'd')
@@ -25,12 +25,15 @@ int	check_arg(va_list arguments, char arg)
 		number += ft_putstr(va_arg(arguments, char *));
 	if (arg == '%')
 		number += print_percent();
-	if (arg == 'x')
-		number += print_lowcase_hex(va_arg(arguments, unsigned int));
-	if (arg == 'X')
-		number += print_upcase_hex(va_arg(arguments, unsigned int));
+	if (arg == 'x' || arg == 'X')
+	{
+		number += choise_case_hex(va_arg(arguments, unsigned long long), arg);
+	}
 	if (arg == 'p')
-		number += print_ptr(va_arg(arguments, unsigned int));
+	{
+		number += write (1, "0x", 2);
+		number += put_ptr(va_arg(arguments, unsigned long long));
+	}
 	if (arg == 'u')
 		number += print_unsigned(va_arg(arguments, unsigned int));
 	return (number);
@@ -39,8 +42,8 @@ int	check_arg(va_list arguments, char arg)
 int	ft_printf(const char *s, ...)
 {
 	va_list	arguments;
-	int				i;
-	unsigned int	number_of_print;
+	int		i;
+	int		number_of_print;
 
 	i = 0;
 	number_of_print = 0;
@@ -52,6 +55,8 @@ int	ft_printf(const char *s, ...)
 			number_of_print += check_arg(arguments, s[i + 1]);
 			i++;
 		}
+		else
+			number_of_print += ft_putchar(s[i]);
 		i++;
 	}
 	va_end(arguments);

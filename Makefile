@@ -24,7 +24,8 @@ SRCS =  libft/ft_bzero.c libft/ft_strlcat.c \
 		libft/ft_substr.c libft/ft_itoa.c \
         libft/ft_striteri.c libft/ft_split.c \
 		ft_printf_utils.c ft_printf.c \
-		ft_printf_utils2.c
+		ft_printf_utils2.c ft_printf_print_ptr.c \
+		ft_printf_print_unsigned.c \
 
 OBJS = $(SRCS:.c=.o)
 
@@ -45,6 +46,6 @@ fclean: clean
 re: fclean all
 
 norm:
-	norminette
+	norminette $(SRCS)
 
 .PHONY: all clean fclean re norm

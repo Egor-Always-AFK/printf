@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf_utils2.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ocapers <ocapers@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/31 19:02:15 by ocapers           #+#    #+#             */
+/*   Updated: 2021/12/31 19:02:15 by ocapers          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-int ft_putnbr(int n)
+int	ft_putnbr(int n)
 {
-	int len;
-	char *message;
+	int		len;
+	char	*message;
 
 	len = 0;
 	message = ft_itoa(n);
@@ -12,15 +24,15 @@ int ft_putnbr(int n)
 	return (len);
 }
 
-int ft_putstr(char *c)
+int	ft_putstr(char *c)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (c == NULL)
 	{
-		write(1, "NULL", 4);
-		return (4);
+		write(1, "(null)", 6);
+		return (6);
 	}
 	while (c[i])
 	{
@@ -30,11 +42,13 @@ int ft_putstr(char *c)
 	return (i);
 }
 
-int	print_lowcase_hex(unsigned int n)
+void	print_lowcase_hex(unsigned int n)
 {
-	int len;
-
-	len = 0;
+	if (n < 0)
+	{
+		write(1, "-", 1);
+		n *= -1;
+	}
 	if (n >= 16)
 	{
 		print_lowcase_hex(n / 16);
@@ -43,41 +57,38 @@ int	print_lowcase_hex(unsigned int n)
 	else
 	{
 		if (n <= 9)
-		{
-			ft_putchar_fd(n + '0', 1);
-			len++;
-		}
+			ft_putchar(n + '0');
 		else
-		{
-			ft_putchar_fd(n - '0' + 'a', 1);
-			len++;
-		}
+			ft_putchar(n - 10 + 'a');
 	}
-	return (len);
 }
 
-int	print_upcase_hex(unsigned int n)
+void	print_upcase_hex(unsigned int n)
 {
-	int len;
-
-	len = 0;
+	if (n < 0)
+	{
+		write (1, "-", 1);
+		n *= -1;
+	}
 	if (n >= 16)
 	{
-		print_lowcase_hex(n / 16);
-		print_lowcase_hex(n % 16);
+		print_upcase_hex(n / 16);
+		print_upcase_hex(n % 16);
 	}
 	else
 	{
 		if (n <= 9)
-		{
-			ft_putchar_fd(n + '0', 1);
-			len++;
-		}
+			ft_putchar(n + '0');
 		else
-		{
-			ft_putchar_fd(n - '0' + 'A', 1);
-			len++;
-		}
+			ft_putchar(n - 10 + 'A');
 	}
-	return (len);
+}
+
+int	choise_case_hex(unsigned int n, char arg)
+{
+	if (arg == 'X')
+		print_upcase_hex(n);
+	else
+		print_lowcase_hex(n);
+	return (ptr_len(n));
 }

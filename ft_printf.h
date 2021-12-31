@@ -25,11 +25,11 @@ int	print_percent(void);
 
 int	print_unsigned(unsigned int n);
 
-int	print_lowcase_hex(unsigned int n);
+void	print_lowcase_hex(unsigned int n);
 
-int	print_upcase_hex(unsigned int n);
+void	print_upcase_hex(unsigned int n);
 
-int 	print_ptr(unsigned int n);
+int 	print_ptr(unsigned long long n);
 
 int ft_putnbr(int n);
 
@@ -37,6 +37,14 @@ int ft_putchar(char c);
 
 int ft_putstr(char *c);
 
-int ptr_len(unsigned int n);
+int ptr_len(unsigned long long n);
+
+int choise_case_hex(unsigned int n, char arg);
+
+int put_ptr(unsigned long long n);
+
+char	*ft_utoa(unsigned int n);
+
+int	check_len_unsigned(unsigned int n);
 
 #endif
